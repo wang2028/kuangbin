@@ -1,16 +1,15 @@
 #include <iostream>
-#include <set>
 #include <map>
-#include <vector>
 #include <queue>
+#include <set>
+#include <vector>
 using namespace std;
 
 // POJ 2251 Dungeon Master
 
-// 思想：通过队列实现广搜（bfs），只是扩展到了三维
-
-// 每一个状态有三个轴的值（l,r,c），可以简单封装为一个结构体
-// 但我好久没写算法题了...忘了封装
+// 思想：通过队列实现广搜（bfs），只是扩展到了三维；
+// 每一个状态有三个轴的值（l,r,c），可以简单封装为一个结构体，
+// 但我好久没写算法题了...忘了封装...
 
 // 每一组对应的 dirL[i],dirR[i],dirC[i] 表示：向6个方向之一 走一步的偏移量
 const int dirL[] = {1, -1, 0, 0, 0, 0};
@@ -30,85 +29,64 @@ queue<int> qR;
 queue<int> qC;
 queue<int> qT; // 时间队列
 
-int main()
-{
+int main() {
     char tempch;
     int templ, tempr, tempc, tempt;
-    // 筑墙：
-    for (int j = 0; j <= r + 1; j++)
-    {
-        for (int k = 0; k <= c + 1; k++)
-        {
+    // 最外圈筑墙：
+    for (int j = 0; j <= r + 1; j++) {
+        for (int k = 0; k <= c + 1; k++) {
             maze[0][j][k] = false;
         }
     }
-    for (int i = 0; i <= l + 1; i++)
-    {
-        for (int k = 0; k <= c + 1; k++)
-        {
+    for (int i = 0; i <= l + 1; i++) {
+        for (int k = 0; k <= c + 1; k++) {
             maze[i][0][k] = false;
         }
     }
-    for (int i = 0; i <= l + 1; i++)
-    {
-        for (int j = 0; j <= r + 1; j++)
-        {
+    for (int i = 0; i <= l + 1; i++) {
+        for (int j = 0; j <= r + 1; j++) {
             maze[i][j][0] = false;
         }
     }
 
-    while (cin >> l >> r >> c)
-    {
-        if (l == 0)
-            break;
+    while (cin >> l >> r >> c) {
+        if (l == 0) break;
 
-        // 筑墙：
-        for (int j = 0; j <= r + 1; j++)
-        {
-            for (int k = 0; k <= c + 1; k++)
-            {
+        // 最外圈筑墙：
+        for (int j = 0; j <= r + 1; j++) {
+            for (int k = 0; k <= c + 1; k++) {
                 maze[l + 1][j][k] = false;
             }
         }
-        for (int i = 0; i <= l + 1; i++)
-        {
-            for (int k = 0; k <= c + 1; k++)
-            {
+        for (int i = 0; i <= l + 1; i++) {
+            for (int k = 0; k <= c + 1; k++) {
                 maze[i][r + 1][k] = false;
             }
         }
-        for (int i = 0; i <= l + 1; i++)
-        {
-            for (int j = 0; j <= r + 1; j++)
-            {
+        for (int i = 0; i <= l + 1; i++) {
+            for (int j = 0; j <= r + 1; j++) {
                 maze[i][j][c + 1] = false;
             }
         }
 
-        for (int i = 1; i <= l; i++)
-        {
-            for (int j = 1; j <= r; j++)
-            {
-                for (int k = 1; k <= c; k++)
-                {
+        // 开始读取：
+        for (int i = 1; i <= l; i++) {
+            for (int j = 1; j <= r; j++) {
+                for (int k = 1; k <= c; k++) {
                     cin >> tempch;
-                    if (tempch == '#')
-                    {
+                    if (tempch == '#') {
                         maze[i][j][k] = false;
-                    }
-                    else if (tempch == '.')
-                    {
+                    } 
+                    else if (tempch == '.') {
                         maze[i][j][k] = true;
-                    }
-                    else if (tempch == 'S')
-                    {
+                    } 
+                    else if (tempch == 'S') {
                         curL = i;
                         curR = j;
                         curC = k;
                         maze[i][j][k] = true;
-                    }
-                    else if (tempch == 'E')
-                    {
+                    } 
+                    else if (tempch == 'E') {
                         endL = i;
                         endR = j;
                         endC = k;
@@ -120,8 +98,8 @@ int main()
 
         minTime = INF;
         curT = 0;
-        qL = queue<int>();
-        qR = queue<int>();
+        qL = queue<int>(); // 直接清空队列，
+        qR = queue<int>(); // 不过这样可能会泄露内存...
         qC = queue<int>();
         qT = queue<int>();
 
@@ -131,8 +109,7 @@ int main()
         qT.push(curT);
         maze[curL][curR][curC] = false;
 
-        while (!qT.empty() && minTime == INF)
-        {
+        while (!qT.empty() && minTime == INF) {
             // 此处有第二个判断条件的原因是 minTime 改变时说明已找到终点
             // 所以无需继续广搜，因为最先找到的一定时间最短
             curL = qL.front();
@@ -144,18 +121,15 @@ int main()
             qC.pop();
             qT.pop();
 
-            for (int i = 0; i < 6; i++)
-            {
+            for (int i = 0; i < 6; i++) {
                 // 此处不能直接用 curL += dirL[i]，会使之后的循环中 curL 错误
                 templ = curL + dirL[i];
                 tempr = curR + dirR[i];
                 tempc = curC + dirC[i];
                 tempt = curT + 1;
-                if (maze[templ][tempr][tempc])
-                {
+                if (maze[templ][tempr][tempc]) {
                     // 第一次遇到一定是最短的，所以直接结束去输出
-                    if (templ == endL && tempr == endR && tempc == endC)
-                    {
+                    if (templ == endL && tempr == endR && tempc == endC) {
                         minTime = tempt;
                         break;
                     }
@@ -168,12 +142,10 @@ int main()
             }
         }
 
-        if (minTime == INF)
-        {
+        if (minTime == INF) {
             cout << "Trapped!" << endl;
-        }
-        else
-        {
+        } 
+        else {
             cout << "Escaped in " << minTime << " minute(s)." << endl;
         }
     }
