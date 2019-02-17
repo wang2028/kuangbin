@@ -2,9 +2,15 @@
 
 ## Dijkstra
 
+> 求可以存在环的最短路（不存在负权边）
+
 详见：[图论 · 最短路 · Dijkstra](https://wangxw.cn/htmls/p-k-d-f.html#H3-3)
 
+<br>
+
 ## Bellman_Ford
+
+> 求可以存在负权边的最短路
 
 与迪杰斯特拉不同的是原优先队列换成了普通队列，且不能对每次求得最短的点进行标记，因为存在负权时，从起点开始直达的最短的点可能存在间接更短的点，所以不用确定某点是否已经“完成”，只需要持续迭代队列，若存在某点迭代次数超过 n 才无解，否则会直至队列为空，求得解。
 
@@ -50,3 +56,11 @@ bool bellman_ford(int s){
     return true;
 }
 ```
+
+<br>
+
+## Floyd
+
+> 求任意两点间最短距离 d[i][j]
+
+详见：[图论 · 最短路 · Floyd](https://wangxw.cn/htmls/p-k-d-f.html#H3-8)
