@@ -14,6 +14,8 @@
 
 与迪杰斯特拉不同的是原优先队列换成了普通队列，且不能对每次求得最短的点进行标记，因为存在负权时，从起点开始直达的最短的点可能存在间接更短的点，所以不用确定某点是否已经“完成”，只需要持续迭代队列，若存在某点迭代次数超过 n 才无解，否则会直至队列为空，求得解。
 
+以下为核心算法，使用时须将其替换入 [Dijkstra 模板](https://wangxw.cn/htmls/p-k-d-f.html#H5-6) （替换 dij() 方法）
+
 ```c++ {.lang-type-c++}
 int fa[n];
 bool bellman_ford(int s){
@@ -27,9 +29,9 @@ bool bellman_ford(int s){
     memset(inq, 0, sizeof(inq));
     memset(cnt, 0, sizeof(cnt));
     for (int i = 0;i<n;i++){
-        dis[i] = INF;
+        d[i] = INF;
     }
-    dis[s] = 0;
+    d[s] = 0;
     inq[s] = true;
     Q.push(s);
 
