@@ -5,8 +5,10 @@ using namespace std;
 #define INF 0x3f3f3f3f
 
 /*
-    不知道会不会超时啊...
-    TODO 未提交
+    The Suspects POJ - 1611 并查集
+    直接并查集，将每个小组第一人之后的人都并入第一人的集合，
+    最后找到第 0 号 suspect 的根结点，一重循环判断其他所有人的根结点，
+    若与 0 号处于同一集合，则也是 suspect
 */
 
 const int maxn = 30005;

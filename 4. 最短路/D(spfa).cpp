@@ -10,8 +10,7 @@ using namespace std;
     POJ 3268 Silver Cow Party
     spfa 算法，即 Bellman_Ford 算法
     模板同 Dijkstra，只将原 dij() 方法换成了 bf()
-
-    TODO 未提交
+    625ms 4760kB
 */
 
 const int maxn = 1005;
