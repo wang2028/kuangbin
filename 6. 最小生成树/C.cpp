@@ -1,29 +1,34 @@
 #include <algorithm>
+#include <cmath>
+#include <cstdio>
 #include <cstring>
 #include <iostream>
+#include <map>
+#include <queue>
+#include <set>
+#include <string>
 #include <vector>
-
 using namespace std;
 #define INF 0x3f3f3f3f
 
 /*
-    QS Network ZOJ - 1586 最小生成树
-    直接使用 Kruscal 模板（见 README.md）
-    将边权重加上两端点的“适配器”价格即可
+    Building a Space Station POJ - 2031
+    最小生成树（我用了 kruscal，详见README.md）
+    预处理一下即可
 */
 
-const int maxm = 1005;            // 最大点数
-const int maxn = maxm * maxm / 2; // 最大边数取最大点数的平方除以2
-int adapterPrice[maxm];
+const int maxn = 101;
+const int maxm = maxn * maxn;
 int n, m;
 
-int w[maxn]; // 每个边的权值
-int u[maxn]; // 每个边的起点
-int v[maxn]; // 每个边的终点
-int r[maxn]; // 用来对“边”间接排序的数组
-int p[maxm]; // i 的父结点（基于并查集，用来查找其根结点）
+double w[maxm]; // 每个边的权值
+int u[maxm];    // 每个边的起点
+int v[maxm];    // 每个边的终点
 
-static bool cmp(const int i, const int j) {
+int r[maxm]; // 用来对“边”间接排序的数组
+int p[maxn]; // i 的父结点（基于并查集，用来查找其根结点）
+
+bool cmp(const int i, const int j) {
     // 间接查找中的比较函数
     // 排的是 i,j 的序，但依据是 w[i],w[j]
     return w[i] < w[j];
@@ -37,7 +42,8 @@ int findRoot(int i) {
         return p[i] = findRoot(p[i]);
     // 顺便直接将 i 的父结点更新为集合的根，以提高之后的找根效率
 }
-int kruscal() {
+
+double kruscal() {
     // 返回最小生成树的权值
     // 最小生成树的边存在 ansEdge 中
 
@@ -48,7 +54,7 @@ int kruscal() {
         r[i] = i; // 初始化边序号
     }
 
-    int ans = 0; // 最终权值和
+    double ans = 0; // 最终权值和
     int e, x, y;
     sort(r, r + m, cmp);
     for (int i = 0; i < m; i++) {
@@ -63,34 +69,42 @@ int kruscal() {
     return ans;
 }
 
+typedef struct {
+    double x, y, z, r;
+} Node;
+
 int main() {
-    int t;
-    cin >> t;
-    while (t--) {
-        cin >> n;
-        m = n * n;
-        memset(w, 0, sizeof(w));
-        memset(u, 0, sizeof(u));
-        memset(v, 0, sizeof(v));
-        memset(adapterPrice, 0, sizeof(adapterPrice));
+    int cnt;
+    double x, y, z, radius;
+    while (cin >> n && n) {
+        Node nodes[maxn];
+        cnt = 0;
         for (int i = 0; i < n; i++) {
-            cin >> adapterPrice[i];
+            cin >> nodes[i].x >> nodes[i].y >> nodes[i].z >> nodes[i].r;
         }
-        int cnt = 0, price;
+        double dis2, radiusSum; // 球心距离的平方
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                cin >> price;
-                if (i == j || i < j) {
-                    // 只读下三角
+                if (i == j) {
                     continue;
                 }
-                w[cnt] = price + adapterPrice[i] + adapterPrice[j];
+
                 u[cnt] = i;
                 v[cnt] = j;
+                dis2 = pow(nodes[i].x - nodes[j].x, 2) +
+                       pow(nodes[i].y - nodes[j].y, 2) +
+                       pow(nodes[i].z - nodes[j].z, 2);
+                radiusSum = nodes[i].r + nodes[j].r;
+                if (dis2 <= radiusSum * radiusSum) {
+                    w[cnt] = 0;
+                } else {
+                    w[cnt] = sqrt(dis2) - radiusSum;
+                }
                 cnt++;
             }
         }
-        cout << kruscal() << endl;
+        m = cnt;
+        printf("%.3f\n", kruscal());
     }
 
     return 0;
