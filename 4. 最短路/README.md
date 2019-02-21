@@ -1,5 +1,7 @@
 # 最短路
 
+> kuangbin 系列专题 4 最短路，题解见 [Github](https://github.com/Zen-w/kuangbin/tree/master/4.%20%E6%9C%80%E7%9F%AD%E8%B7%AF)，持续更新中
+
 ## Dijkstra
 
 > 求可以存在环的最短路（不存在负权边）
