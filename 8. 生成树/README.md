@@ -1,10 +1,8 @@
 # 生成树
 
-相比最小生成树，该专题涉及到了“次小生成树”。
+相比最小生成树，该专题对生成树进行扩展，首先给出最小生成树的 Prim 模板：
 
 ## Prim
-
-首先，给出基础的 Prim 模板：
 
 ```C++ {.lang-type-c++}
 const int INF = 0x3f3f3f;
@@ -65,9 +63,10 @@ int used[maxn][maxn]; // 记录边 (i,j) 是否在最小生成树中
 int prim() {
     // 暂以点 0 为起点
     int ans = 0;
+    // 注意以下需要初始化：
     memset(vis, 0, sizeof(vis));
-    memset(fa, 0, sizeof(fa));
     memset(Max, 0, sizeof(Max));
+    memset(used, 0, sizeof(used));
     vis[0] = true;
     fa[0] = -1;
     lowcost[0] = 0;
@@ -75,6 +74,7 @@ int prim() {
         lowcost[i] = cost[0][i];
         fa[i] = 0;
     }
+    
     for (int i = 1; i < n; i++) {
         // 循环 n-1 次
         // 首先找出当前最短路径，及其端点：
@@ -107,3 +107,7 @@ int prim() {
 }
 // 之后再遍历 used[i][j] 中值为 false 的边，用其值替换 Max[i][j] 即可。
 ```
+
+## 最小树形图
+
+即有向图的最小生成树。

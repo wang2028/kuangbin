@@ -14,9 +14,9 @@
 
 > 求可以存在负权边的最短路
 
-与迪杰斯特拉不同的是原优先队列换成了普通队列，且不能对每次求得最短的点进行标记，因为存在负权时，从起点开始直达的最短的点可能存在间接更短的点，所以不用确定某点是否已经“完成”，只需要持续迭代队列，若存在某点迭代次数超过 n 才无解，否则会直至队列为空，求得解。
+与迪杰斯特拉不同的是原优先队列换成了普通队列，且不能对每次求得最短的点进行标记为已完成（仅需要对结点标记是否在队列中：inq），因为存在负权时，从起点开始直达的最短的点可能存在间接更短的点，所以不用确定某点是否已经“完成”，只需要持续迭代队列，若存在某点迭代次数 cnt[i] 超过 n 才无解，否则会直至队列为空，求得解。
 
-以下为核心算法，使用时须将其替换入 [Dijkstra 模板](https://wangxw.cn/htmls/p-k-d-f.html#H5-6) （替换 dij() 方法）
+以下为核心算法，使用时须将其替换入 [Dijkstra 模板](https://wangxw.cn/htmls/p-k-d-f.html#H5-6) （仅替换 dij() 方法）
 
 ```c++ {.lang-type-c++}
 int fa[n];
@@ -58,6 +58,82 @@ bool bellman_ford(int s){
         }
     }
     return true;
+}
+```
+
+<br>
+
+## spfa（优化版）
+
+在 bellman_ford 的基础上，一方面以前向星存边，另一方面采用双端队列进行优化（类似于优先队列，优先弹出距离较短的点以便于之后的更新）
+
+```C++ {.lang-type-C++}
+const int maxn = 105, maxm = 105;
+// 前向星存边：
+struct Edge {
+    int to, w;
+    int next; // 与改变同起点的下一条边
+} edge[maxm];
+int head[maxn];
+int cnt = 0;
+void add(int u, int v, int w) {
+    edge[cnt].to = v;
+    edge[cnt].next = head[u];
+    edge[cnt].w = w;
+    head[u] = cnt++;
+}
+
+// 双端队列优化版的 spfa：
+int n, m;
+bool inq[maxn];
+int inqCnt[maxn]; // 记录结点入队次数
+int d[maxn];
+bool spfa(int start) {
+    for (int i = 0; i < n; i++) {
+        // n个节点
+        d[i] = INF;
+    }
+    memset(inq, 0, sizeof(inq));
+    memset(inqCnt, 0, sizeof(inqCnt));
+    inqCnt[start] = 1;
+    d[start] = 0, inq[start] = true;
+    deque<int> q; //双端队列
+    q.push_front(start);
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop_front();
+        inq[u] = false;
+
+        //前向星遍历：
+        for (int i = head[u]; ~i; i = edge[i].next) {
+            int v = edge[i].to;
+            if (d[v] > d[u] + edge[i].w) {
+                d[v] = d[u] + edge[i].w;
+                if (inq[v])
+                    continue;
+                inq[v] = true;
+                if (!q.empty() && d[v] > d[q.front()])
+                    q.push_back(v);
+                else
+                    q.push_front(v);
+                if(++inqCnt[v]>n)
+                    return false;
+            }
+        }
+    }
+    return true;
+}
+
+int main() {
+    cin >> n >> m;
+    for(int i = 0; i < n; i++){
+        head[i] = -1;
+    }
+
+    // 读边 (u,v) 后记得 u--;v--;
+    // 无向图记得添加双向的边
+
+    return 0; 
 }
 ```
 
