@@ -14,9 +14,6 @@ using namespace std;
 
 /*
     Treats for the Cows POJ - 3186
-    总结：
-    1. 找不到如何设置状态转移变量时，想一想什么情况下的值一定确定（也就是找到可最优的子结构）
-    2. 记忆化搜索时 min() 或 max() 内要用递归函数，不要误写成 dp[i][j]
 */
 
 const int maxn = 2005, maxm = 20005;
