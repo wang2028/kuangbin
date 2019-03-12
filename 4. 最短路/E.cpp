@@ -49,12 +49,6 @@ struct Dij {
         G[from].push_back(m - 1);
     }
 
-    struct HeapNode {
-        int d, u; // 距离，终点（我觉得紫书这里应该用 v，与前面保持一致）
-        bool operator<(const HeapNode &rhs) const {
-            return d > rhs.d; // 距离越远优先级越低（越晚弹出）
-        }
-    };
 
     bool bf(int s) {
         // 带负权的求最短路

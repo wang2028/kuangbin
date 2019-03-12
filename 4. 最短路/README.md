@@ -71,8 +71,8 @@ bool bellman_ford(int s){
 const int maxn = 105, maxm = 105;
 // 前向星存边：
 struct Edge {
-    int to, w;
-    int next; // 与改变同起点的下一条边
+    int to, w; // 边的原始数据
+    int next; // 与该边同起点的下一条边
 } edge[maxm];
 int head[maxn];
 int cnt = 0;
