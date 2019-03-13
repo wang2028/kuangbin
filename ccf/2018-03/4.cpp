@@ -7,7 +7,7 @@
 #include <stack>
 using namespace std;
 
-// TODO 未看
+// TODO 
 
 const int maxn = 20000;
 int map[4][4];
@@ -94,9 +94,10 @@ int main()
 {
     int cas;
     scanf("%d", &cas);
+    for (int i = 0; i < maxn; i++) // maxn 为何取 6e4+10 ？
+        d[i] = -1e9;            
     while (cas--)
     {
-
         zero = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
@@ -109,16 +110,12 @@ int main()
         if (t)
         {
             printf("%d", t == 1 ? zero + 1 : -zero - 1);
-            if (cas)
-                puts("");
+            cout << endl;
             continue;
         }
 
-        for (int i = 0; i < maxn; i++) // maxn 为何取 6e4+10 ？
-            d[i] = -1e9; // 这每个 Case 都重置一遍的话，那记忆化不就没用了？
         printf("%d", dfs(1));
-        if (cas)
-            puts("");
+        cout << endl;
     }
     return 0;
 }
