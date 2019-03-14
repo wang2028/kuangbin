@@ -1,5 +1,8 @@
 # 专题一、简单搜索
 
+> 万物皆可搜 everything can be dfs/bfs...
+> 不行再加上记忆化 at most with memorizing...
+
 基本上用深搜（dfs）或广搜（bfs）配合 STL 可解决，有的一开始比较难想（也可能是我很多没写过算法题了...）
 
 ## 深搜 bfs

@@ -2,6 +2,7 @@
 
 ## 二分匹配
 
+
 ### 基于最大流解法
 
 可新增起点 s，汇点 t，将 s 连 U 中点 u 一条流量为 1 的边，V 中点 v 连 t 一条流量为 1 的边，这样求从 s 到 t 的最大流，即为 U-V 二分匹配的结果。
@@ -85,6 +86,27 @@ int solve() {
     }
     return p/2;
 }
+```
+
+### 判断图是否可二分
+
+交叉染色法。即基于深搜，设某结点为 u，涂黑色，则其直接子节点 v1、v2 可涂白色，v1、v2 的直接子节点又可涂黑色，如此反复，直至遇到与某黑色（或白色）点 a 相连的点 b 也是黑色（或白色），则失败，否则全部着色完毕后，返回成功。
+
+```C++ {.lang-type-C++}
+int color[maxn];
+bool dfs(int t, int cur) {
+    for (int i = 0; i < G[t].size(); i++) {
+        if (color[G[t][i]] == cur) {
+            return false;
+        } else if (color[G[t][i]] == 0) {
+            color[G[t][i]] = 3 - cur;
+            if (!dfs(G[t][i], 3 - cur))
+                return false;
+        }
+    }
+    return true;
+}
+// 调用： memset(color, 0, sizeof(color)); return dfs(0, 1);
 ```
 
 TODO 后缀数组
