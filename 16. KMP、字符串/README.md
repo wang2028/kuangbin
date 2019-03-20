@@ -9,6 +9,8 @@ H(s) = (c<sub>1</sub>B<sup>m-1</sup> + c<sub>2</sub>B<sup>m-2</sup> + ... +c<sub
 
 即，将字符串看做 B 进制（取 B=100 000 000）的整数（用 unsigned long long 来存），（因为字符本质也是整数，所以可以参与运算），每当子串 s 位置后移 1 位时，将原 H(s) 乘 B，减去 原最高位 s[i]*b<sup>m</sup>，加上 s[i+m] 即为新的位置的哈希值。
 
+注：一般情况下并不可用 string 及 cin，而要用 char* 及 scanf
+
 ```C++ {.lang-type-C++}
 typedef unsigned long long ull;
 const ull B = 100000007; // 哈希的基数，即 B 进制（我也不知道为什么取这么大，感觉 256 就够了）
@@ -51,3 +53,51 @@ int main() {
     return 0;
 }
 ```
+
+## Trie
+
+即将已有字符串基于（前缀）树的结构保存。
+
+```C++ {.lang-type-C++}
+// 以 26 个小写英文字母为字符集：
+const int maxn = 106, maxch = 26;
+typedef struct trie {
+    int ch[maxn][maxch]; // 第 i 个节点的子节点 j 的序号
+    int val[maxn]; // 每个结点的附加值
+    int cnt;
+    struct trie() {
+        cnt = 1;
+        memset(ch[0], 0, sizeof(ch[0])); // 0 为根结点，无子节点（即子节点序号为 0）
+    }
+    void insert(string s, int v) {
+        // 插入附加值为 v 的字符串 s
+        int curNode = 0;
+        for (int i = 0, len = s.size(); i < len; i++) {
+            if (!ch[curNode][s[i] - 'a']) {
+                memset(ch[cnt], 0, sizeof(ch[cnt]));
+                val[cnt] = 0; // 中间结点的附加值
+                ch[curNode][s[i] - 'a'] = cnt++;
+            }
+            curNode = ch[curNode][s[i] - 'a'];
+        }
+        val[curNode] = v;
+    }
+    int find(string s) {
+        // 返回查询到的字符串的附加值 val
+        // -1 表示没找到，0 表示中间结点
+        int curNode = 0;
+        for (int i = 0, len = s.size(); i < len; i++) {
+            curNode = ch[curNode][s[i] - 'a'];
+            if (!curNode) {
+                return -1;
+            }
+        }
+        return val[curNode];
+    }
+}Trie;
+```
+
+
+## KMP
+
+// TODO

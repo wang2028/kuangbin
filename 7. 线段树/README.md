@@ -198,4 +198,51 @@ void update(int o, int left, int right) {
 }
 ```
 
+## 树状数组
 
+做某道题时线段树十分复杂，且会超时，所以又学了下树状数组。
+感觉原理上还是有点复杂，看了这篇[博客](https://blog.csdn.net/Yaokai_AssultMaster/article/details/79492190)才勉强明白些。
+// TODO 待复习
+
+```C++ {.lang-type-C++}
+// 一般需要保留原始数据，因为树状数组里没有原始数据...
+const int maxn = 105;
+int n = 3;
+class Bit {
+  public:
+    int arr[maxn]; // 从第 1 位开始存
+    Bit() { memset(arr, 0, sizeof(arr)); }
+    // 1. 先从第 1 位读原始数据入 arr
+    // 2. 首次构建bit：
+    void build() {
+        // 在 build 前需要
+        for (int i = 1; i <= n; i++) {
+            int j = i + lowbit(i);
+            if (j <= n) {
+                arr[j] += arr[i];
+            }
+        }
+    }
+    // 3. 开始操作：
+    void add(int idx, int val) {
+        // 第 idx 个数加 val，同时更新影响的后续位
+        while (idx <= n) {
+            arr[idx] += val;
+            idx += lowbit(idx);
+        }
+    }
+    int preSum(int idx) {
+        // 返回从 1~idx 的和
+        int ans = 0;
+        while (idx > 0) {
+            ans += arr[idx];
+            idx -= lowbit(idx);
+        }
+        return ans;
+    }
+
+  private:
+    int lowbit(int x) { return x & (-x); }
+};
+// 记得输入完原始数据后要 build() ！！
+```
