@@ -35,7 +35,7 @@ struct date {
         }
         if (m > 1) {
             m--;
-            if (run(m) && m == 2) {
+            if (run(y) && m == 2) {
                 d = mon2day[m] + 1;
             } else {
                 d = mon2day[m];
@@ -49,7 +49,7 @@ struct date {
 };
 
 int main() {
-    // 2019.3.18 周一
+    // 2019.3.18
     struct date dt = {2019, 3, 18, 1};
     int ans = 0;
     bool start = false;
@@ -59,6 +59,8 @@ int main() {
             start = true;
         }
         if (start && dt.w == 1) {
+            // cout << dt.y << " " << dt.m << " " << dt.d << " " << dt.w <<
+            // endl;
             ans++;
         }
         if (dt.y == 1901 && dt.m == 1 && dt.d == 1) {
