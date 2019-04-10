@@ -8,7 +8,7 @@
 using namespace std;
 const int INF = 0x3f3f3f3f;
 
-// 肯定超时啊啊啊
+// 超时，正确做法应该用二分优化枚举
 
 const int maxn = 100005;
 int hei[maxn], wid[maxn];

@@ -5,20 +5,21 @@ using namespace std;
 #define INF 0x3f3f3f3f
 
 /*
-    D - How Many Answers Are Wrong 扩展并查集（我感觉称作向量并查集更好）
+    D - How Many Answers Are Wrong 扩展并查集 HDU - 3038
+   （我感觉称作向量并查集更好）
 
     题目表意不清，我咋感觉很多要求题目都没说到，如下：
     1. 题目未说多组测试并以 EOF 结束，错以为仅一组测试
     2. 题目未说第一条指令一定是正确的，可能第一条就是错的呢？
-    3. 题目未说 Si 取值！经网上很多 ac 代码测试， 
-        类似 10 2 1 10 10 3 6 30 的测试数据结果均测为 0，说明 Si 可取负数
+    3. 题目未说 Si 取值！经网上很多 ac 代码测试，
+        类似 10 2    1 10 10    3 6 30 的测试数据结果均测为 0，说明 Si 可取负数
 
     难以想到的点：
     1. 读入 left right sum 之后 left 需要减 1，
         因为给出的是闭区间，而对于向量化的并查集来讲其应该是统一的，
         减 1 之后变成了左开右闭区间，便统一了
-    2. 第一次做扩展并查集，在 find() 函数中路径压缩时 “偏移量”offset 的计算有问题
-        详见 find() 函数中注释
+    2. 第一次做扩展并查集，在 find() 函数中路径压缩时 “偏移量”offset
+   的计算有问题 详见 find() 函数中注释
 */
 
 const int maxn = 200086;
@@ -59,7 +60,7 @@ int main() {
                 }
             } else {
                 fa[fax] = fay;
-                offset[fax] = offset[y] - offset[x] + sum;
+                offset[fax] = sum + offset[y] - offset[x]; // 向量运算
             }
         }
 

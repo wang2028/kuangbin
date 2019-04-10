@@ -9,7 +9,7 @@
 ```C++ {.lant-type-C++}
 const int maxn = 203;
 vector<int> G[maxn], Gg[maxn]; // 原图及转置
-vector<int> S;                 // 存拓扑序的结点
+vector<int> S;   // 存拓扑序的结点
 bool vis[maxn];
 int sccNo[maxn]; // 每个点所属SCC编号，从 1 开始
 int sccCnt;

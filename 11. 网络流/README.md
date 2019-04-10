@@ -22,7 +22,7 @@ int dfs(int u, int v, int flow) {
     for (int i = 0; i < G[u].size(); i++) {
         Edge &e = G[u][i];
         if (!vis[e.to] && e.cap > 0) {
-            // 此处判断 !vis[e.to]，若 e 的终点之前访问过便不访问，
+            // 此处判断 !vis[e.to]，若 e 的终点之前访问过就不再访问，
             // 但不会造成漏遍历的情况，因为总控函数 maxFlow 会一直遍历，
             // 直到无路可走
             int f = dfs(e.to, v, min(flow, e.cap));
@@ -54,3 +54,4 @@ int maxFlow(int s, int t) {
 ## Dinic
 
 // TODO
+// https://www.cnblogs.com/SYCstudio/p/7260613.html

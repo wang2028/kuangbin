@@ -18,7 +18,7 @@
 
 注意
 * 因为以数组的形式存储树，所以从 0 开始与从 1 开始时某些计算不同
-* maxn 该树的最大节点数，实际可取略大于元素个数的 4 倍，不是 2 倍！因为节点数大于 2^x^ 时，取 2^x+1^ 明显不够
+* maxn 该树的最大节点数，实际可取略大于原始元素个数的 4 倍，不是 2 倍！因为节点数大于 2^x^ 时，取 2^x+1^ 明显不够
 
 以下代码（模板）以求区间最小值为例：
 
@@ -127,7 +127,7 @@ const int maxn = 400009; // 同上“点修改”
 int sumv[maxn]; // 每个节点保存的线段和
 int mark[maxn]; // 对点进行标记，以示该点的所有子叶节点实际上需要更新
 int origin[maxn / 4]; // 读入的原始数据，建树操作需要
-
+// 左子树 left ~ (left+right)/2，右子树 (left+right)/2+1 ~ right
 // 建树：
 void build(int o, int l, int r) {
     mark[o] = 0;
@@ -178,7 +178,7 @@ int querySum(int o, int left, int right) {
 // 更新 minv[toUpdate] = val：
 int toUpdateLeft, toUpdateRight, val;
 void update(int o, int left, int right) {
-    if (left >= toUpdateLeft && right <= toUpdateRight) {
+    if (toUpdateLeft <= left && right <= toUpdateRight) {
         // 叶节点
         sumv[o] += val * (right - left + 1);
         mark[o] += val;

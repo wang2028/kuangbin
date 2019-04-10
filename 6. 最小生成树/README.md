@@ -1,7 +1,6 @@
 # 最小生成树
 
-根据 MST 性质，主要有 Prim（见 专题8.生成树 README.md）和 Kruscal 两类算法，个人倾向 Kruscal
-
+根据 MST 性质，主要有 Prim（见 专题8.生成树 README.md）和 Kruscal 两类算法，在此专题中，个人倾向 Kruscal（Kruscal更适合于稠密图）。
 
 ## [Kruscal](https://wangxw.cn/htmls/p-k-d-f.html#H3-2)
 

@@ -1,5 +1,7 @@
 # 字符串算法
 
+https://vjudge.net/contest/70325#problem/D
+
 ## Rabin-Karp（滚动哈希）
 
 利用哈希可以确定一种映射关系（当然会存在冲突），因此，可以将字符串匹配问题基于哈希来解。即，将问题：字符串a出现在字符串b中的位置（及次数等问题）换做遍历b以寻找哈希值与a相等的子串。
@@ -22,7 +24,7 @@ int solve(string a, string b) {
     if (alen > blen)
         return false;
 
-    ull t = 1; // 移动位置后最高位的权值
+    ull t = 1; // 移动位置后当前最高位的更高位的权值
     for (int i = 0; i < a.length(); i++) {
         t *= B;
     }
@@ -56,7 +58,7 @@ int main() {
 
 ## Trie
 
-即将已有字符串基于（前缀）树的结构保存。
+即 将已有字符串基于（前缀）树的结构保存。
 
 ```C++ {.lang-type-C++}
 // 以 26 个小写英文字母为字符集：
