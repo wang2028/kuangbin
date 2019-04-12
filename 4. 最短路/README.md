@@ -2,7 +2,10 @@
 
 > kuangbin 系列专题 4 最短路，题解见 [Github](https://github.com/Zen-w/kuangbin/tree/master/4.%20%E6%9C%80%E7%9F%AD%E8%B7%AF)，持续更新中
 
-### [Dijkstra](https://wangxw.cn/htmls/p-k-d-f.html#H3-3)
+注意：
+* 双向边开数组要注意题目给的范围再 __乘以 2__
+
+## [Dijkstra](https://wangxw.cn/htmls/p-k-d-f.html#H3-3)
 
 > 单源最短路径，即从固定一点出发到其他各点的最短路径，求可以存在环的最短路（不存在负权边）
 
@@ -170,7 +173,7 @@ struct Edge {
 } edge[maxm];
 int head[maxn];
 int cnt = 0;
-void add(int u, int v, int w) {
+void addEdge(int u, int v, int w) {
     edge[cnt].to = v;
     edge[cnt].next = head[u];
     edge[cnt].w = w;
@@ -181,7 +184,7 @@ void add(int u, int v, int w) {
 int n, m;
 bool inq[maxn];
 int inqCnt[maxn]; // 记录结点入队次数
-int d[maxn];
+int d[maxn]; // 到各点的最短路
 bool spfa(int start) {
     for (int i = 0; i < n; i++) {
         // n个节点

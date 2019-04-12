@@ -8,7 +8,6 @@ using namespace std;
     Floyd
 */
 
-
 const int maxn = 1005;
 int n = 0;
 int d[maxn][maxn];
@@ -21,7 +20,13 @@ void floyd() {
 
     for (int k = 0; k < n; k++) {
         for (int i = 0; i < n; i++) {
+            if(i == k){
+                continue;
+            }
             for (int j = 0; j < n; j++) {
+                if(i == j || j == k){
+                    continue;
+                }
                 if (d[i][k] < INF && d[k][j] < INF) {
                     // 避免两个初始 INF 相加后的和超过 INF，所以判断一下
                     d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
