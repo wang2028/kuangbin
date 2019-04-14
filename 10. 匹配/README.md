@@ -108,5 +108,3 @@ bool dfs(int t, int cur) {
 }
 // 调用： memset(color, 0, sizeof(color)); return dfs(0, 1);
 ```
-
-TODO 后缀数组

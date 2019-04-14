@@ -7,8 +7,6 @@
 #include <stack>
 using namespace std;
 
-// TODO 
-
 const int maxn = 20000;
 int map[4][4];
 int zero = 0; //空格个数

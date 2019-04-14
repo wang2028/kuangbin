@@ -7,7 +7,6 @@ using namespace std;
 
 /*
     G - Balanced Lineup POJ - 3264
-    TODO 未提交
     线段树很基础的模板题，维护两个数组（最大和最小）即可
 */
 

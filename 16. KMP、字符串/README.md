@@ -101,5 +101,3 @@ typedef struct trie {
 
 
 ## KMP
-
-// TODO
