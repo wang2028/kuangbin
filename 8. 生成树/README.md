@@ -4,7 +4,7 @@
 
 ## Prim
 
-> 在求解最小生成树中，Prim 更适合于稀疏图
+> 在求解最小生成树中，Prim 更适合于稠密图
 
 ```C++ {.lang-type-c++}
 const int INF = 0x3f3f3f;

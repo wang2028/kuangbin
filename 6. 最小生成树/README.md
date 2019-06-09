@@ -2,7 +2,11 @@
 
 根据 MST 性质，主要有 Prim（见 专题8.生成树 README.md）和 Kruscal 两类算法，在此专题中，个人倾向 Kruscal（Kruscal更适合于稠密图）。
 
+本质：贪心
+
 ## [Kruscal](https://wangxw.cn/htmls/p-k-d-f.html#H3-2)
+
+适用于稀疏图；
 
 除 MST 性质外，Kruscal 的实现主要还依靠两思想：
 * 并查集：见 专题5.并查集 中 README.md
@@ -82,3 +86,7 @@ int main() {
 ```
 
 <br>
+
+## Prim
+
+见“8. 生成树”部分
