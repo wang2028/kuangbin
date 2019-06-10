@@ -99,5 +99,3 @@ typedef struct trie {
 }Trie;
 ```
 
-
-## KMP
