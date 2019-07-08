@@ -102,3 +102,22 @@ thing[cnt].val = val * n;
 
 之后对其进行 0-1 背包（逆序遍历容量）
 
+## 滚动数组
+
+```C++
+int *src; //源指针   
+int *des; //目的指针 
+// 由于初始状态保存在 dp 数组的第 0 行中，初始时：
+src = dp[1];
+des = dp[0];
+// 按照状态转移方程进行状态转移   
+for (int i = 1;i <= n;i ++) { 
+    swap(src,des); //交换源和目的指针 
+    for (int j = 1;j <= m;j ++) { 
+        des[j] = max(src[j + 1],src[j - 1]); 
+    } 
+}   
+int ans = des[m];
+```
+
+当然，也可以通过 0/1 来轮流取第一维或第二维。
