@@ -43,7 +43,7 @@ float kruscal() {
     sort(edge, edge + m, cmp);
     int need = n - 1 - (sate - 1);
     int pa, pb;
-    int cnt = 0;
+    int cnt = 0; // counter
     float ans = 0;
     while (need) {
         pa = find(edge[cnt].from);

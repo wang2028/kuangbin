@@ -1,12 +1,11 @@
 # 最小生成树
 
-根据 MST 性质，主要有 Prim（见 专题8.生成树 README.md）和 Kruscal 两类算法，在此专题中，个人倾向 Kruscal（Kruscal更适合于稠密图）。
+根据 MST 性质，主要有 Prim（见 专题8.生成树 README.md）和 Kruscal 两类算法，在此专题中，个人倾向 Kruscal（Kruscal更适合于稀疏图）。
 
 本质：贪心
 
 ## [Kruscal](https://wangxw.cn/htmls/p-k-d-f.html#H3-2)
 
-适用于稀疏图；
 
 除 MST 性质外，Kruscal 的实现主要还依靠两思想：
 * 并查集：见 专题5.并查集 中 README.md
@@ -26,7 +25,7 @@ int n = 0, m = 0; // 点数、边数
 int w[maxm]; // 每个边的权值
 int u[maxm]; // 每个边的起点
 int v[maxm]; // 每个边的终点
-vector<int> ansEdge;
+vector<int> ansEdge; // answer edge
 
 int r[maxm]; // 用来对“边”间接排序的数组
 int p[maxn]; // i 的父结点（基于并查集，用来查找其根结点）

@@ -82,6 +82,7 @@ struct Dij {
                 Edge &e = edges[G[u][i]];
 
                 // 新的松弛条件：
+                // d数组：到达点i的路径上最长的边
                 if (e.w < d[e.to] && d[u] < d[e.to]) {
                     d[e.to] = max(e.w, d[u]);
                     Q.push(HeapNode{d[e.to], e.to});

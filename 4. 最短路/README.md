@@ -31,7 +31,7 @@
 对稀疏图效果较好；
 
 ```C++ {.lang-type-c++}
-// 为与之后网络流风格一致，定义边：
+// 为与之后网络流风格一致，定义边 ：
 struct Edge {
     int from, to, w; // 紫书这里用了 dist 表示 w
     Edge(int u, int v, int w) :from(u), to(v), w(w) {}

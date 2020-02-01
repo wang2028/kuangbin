@@ -114,7 +114,7 @@ des = dp[0];
 for (int i = 1;i <= n;i ++) { 
     swap(src,des); //交换源和目的指针 
     for (int j = 1;j <= m;j ++) { 
-        des[j] = max(src[j + 1],src[j - 1]); 
+        des[j] = max(src[j + 1],src[j - 1]);  
     } 
 }   
 int ans = des[m];
